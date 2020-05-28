@@ -44,8 +44,8 @@ plainwhite:
     linkedIn: in/matthewfortunka # format: locale/username
 
 # Build settings
-theme: plainwhite
-remote_theme: thelehhman/plainwhite-jekyll
+theme: minima
+#remote_theme: thelehhman/plainwhite-jekyll
 plugins:
   - jekyll-feed
 
