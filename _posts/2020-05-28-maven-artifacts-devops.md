@@ -2,7 +2,7 @@
 layout: post
 title:  "Promoting Maven Packages to Release Views using the Azure DevOps Artifacts REST API."
 date:   2020-05-27 11:19:38 +0100
-categories: Maven DevOps Pipelines Artifacts
+categories: Maven DevOps
 excerpt: Azure DevOps artifacts has the ability to promote Packages between different states, this is useful if you want to test different versions of a package with limited audiences (who accept the risk).
 author: Matthew Fortunka
 ---
