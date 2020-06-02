@@ -36,6 +36,7 @@ plainwhite:
 
   date_format: "%b %-d, %Y"  
   sitemap: true
+  dark_mode: true
   navigation:
   - url: /
     title: Home
