@@ -5,9 +5,10 @@ date:   2020-06-12 12:00:00 +0100
 categories: Blob S3 Powershell
 author: Matthew Fortunka
 ---
-AWS S3 buckets have a concept of versioning files, until recently there has been no equivalent of this in Azure and people have needed to put workarounds in place to "replicate" this functionality.  As of February 2020, Azure released a preview of [Blob Versioning](https://docs.microsoft.com/en-us/azure/storage/blobs/versioning-overview?tabs=powershell).  When enabled every time an update operation occurs on a blob a new version is created.  Each version can then be retrieved independently.
 
-***Be aware at the time of writing Blob Versioning is only available in a limited number of regions, notably Cananda East, Canada Central and France Central***
+*** This article was originally written about the preview of Blob versioning, the feature was made generally avaialble in September 2020 ***
+
+AWS S3 buckets have a concept of versioning files, until recently there has been no equivalent of this in Azure and people have needed to put workarounds in place to "replicate" this functionality.  As of September 2020, Azure released [Blob Versioning](https://docs.microsoft.com/en-us/azure/storage/blobs/versioning-overview?tabs=powershell).  When enabled every time an update operation occurs on a blob a new version is created.  Each version can then be retrieved independently.
 
 Now there are equivalent services in AWS and Azure, it is useful to be able to migrate content from one to the other.  To that end I have created a couple of powershell scripts.
 
