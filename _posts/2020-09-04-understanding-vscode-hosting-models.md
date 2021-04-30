@@ -8,6 +8,7 @@ author: Matthew Fortunka
 
 I spend a lot of my day in VSCode, it has replaced "full-fat" Visual Studio for small projects (although I still prefer it for .net development) and has superceded the notepad/notepad++'s of the world for general quick editing.  (This blob post is being written in markdown in vscode for example).  Over the last year the options for how you run vscode have become numerous and need a little explaining so lets start with how the application is structured.
 
+
 VSCode consists of 2 parts, a client, which handles to drawing to the screen (and things like themes), and the server which handles everything else (your file system, the debugger, terminal etc)
 
 ![](/assets/2020-09-04-understanding-vscode-hosting-models/VSCode-client-local-server-local.png "vscode local client and server")
