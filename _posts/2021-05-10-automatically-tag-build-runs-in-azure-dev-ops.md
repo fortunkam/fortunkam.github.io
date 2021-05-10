@@ -8,9 +8,13 @@ author: Matthew Fortunka
 
 One little known feature of Azure DevOps Pipelines is the ability to tag a pipeline run.  By default this is a manual process.  
 Once the build has completed you select Edit Tags and add the values.
+
 ![](/assets/2021-05-10-automatically-tag-build-runs-in-azure-dev-ops/edit_build_tags_1.png "edit tags button")
+
 ![](/assets/2021-05-10-automatically-tag-build-runs-in-azure-dev-ops/edit_build_tags_2.png "edit tags entry")
+
 The tags then show up under the title for that run.
+
 ![](/assets/2021-05-10-automatically-tag-build-runs-in-azure-dev-ops/edit_build_tags_3.png "edit tags added")
 
 You can add these tags using the REST API.  [This article has a good description of how to get an authentication token for the api](https://tenbulls.co.uk/2020/03/11/querying-azure-devops-rest-api-with-powershell/)
