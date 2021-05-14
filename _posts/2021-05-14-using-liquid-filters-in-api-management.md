@@ -67,7 +67,7 @@ My API call now returns something like this...
 
 Almost there, but when I try to test this using the excellent rest-client extension in VSCode, it complains that the body isn't a valid JSON payload!  The reason is the rogue `\r\n` in the first joke, so we need to strip out/convert any newlines before we return the response.  Enter [liquid filters](https://shopify.github.io/liquid/filters/newline_to_br/)! 
 
-According to the documentation I should be able to change my `set-body` policy to use one or more filters like this (I am using both to really make sure they are gone 😀)..
+According to the documentation I should be able to change my `set-body` policy to use one or more filters like this (I am using both to really make sure they are gone 😀, actually newline_to_br adds a br element in front of any \r\n but we still need to get rid of them, this way the intended formatting is preserved as html)..
 
     {% raw %}
     <set-body template="liquid">{
