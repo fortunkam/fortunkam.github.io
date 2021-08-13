@@ -233,8 +233,10 @@ GEM
     sawyer (0.8.2)
       addressable (>= 2.3.5)
       faraday (> 0.8, < 2.0)
+    stringex (2.8.5)
     terminal-table (1.8.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
+    thor (1.1.0)
     thread_safe (0.3.6)
     typhoeus (1.4.0)
       ethon (>= 0.9.0)
@@ -250,6 +252,8 @@ DEPENDENCIES
   github-pages (~> 206)
   jekyll-feed (~> 0.12)
   plainwhite
+  stringex
+  thor
   tzinfo (~> 1.2)
   tzinfo-data
   wdm (~> 0.1.1)

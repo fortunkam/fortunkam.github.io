@@ -7,3 +7,5 @@ You need to install Ruby and the [Jekyll packages](https://jekyllrb.com/docs/ins
 
 To run locally `bundle exec jekyll serve`
 
+Have added a thor file to allow the creation of new posts using `thor jekyll:new this is a test post` (https://gist.github.com/ichadhr/0b4e35174c7e90c0b31b)
+
