@@ -13,7 +13,7 @@ This one is a bit of a gotcha around building an API Management (APIM) resource 
 
 If you extract the Template (`Export Template` option) from the Azure portal you will notice that these settings are not included.  The reason is that these are actually resources of the Azure Monitor implementation not the APIM.
 
-For more details, take a look at the [Azure Monitor documentation here](https://docs.microsoft.com/en-us/azure/azure-monitor/essentials/resource-manager-diagnostic-settings).
+For more details, take a look at the [Azure Monitor documentation here](https://docs.microsoft.com/en-us/azure/azure-monitor/essentials/resource-manager-diagnostic-settings).  This contains a good set of examples for other resources but not APIM (is on my backlog to amend it).
 
 Here is a sample ARM resource template that adds all the available logger types (Event Hub, Storage and Log Analytics)
 
