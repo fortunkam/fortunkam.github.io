@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Deploying API Management APIs using Github Actions - Part 2"
-date:   2021-09-15 10:00:00 +0100
+date:   2021-09-16 10:00:00 +0100
 categories: 
 author: Matthew Fortunka
 ---
