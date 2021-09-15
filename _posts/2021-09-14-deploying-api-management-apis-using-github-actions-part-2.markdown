@@ -177,10 +177,16 @@ As part of the API definition I have added a link to the standard unlimited APIM
     steps:
       - name: Call Single API
         run: |
-          curl --request GET --url ${{ secrets.AZURE_APIM_BASE_URL }} --header 'ocp-apim-subscription-key: ${{ secrets.AZURE_APIM_SUBSCRIPTION_KEY }}'
+          STATUSCODE=$(curl --silent --output /dev/stderr --write-out "%{http_code}" --request GET --url ${{ secrets.AZURE_APIM_BASE_URL }} --header 'ocp-apim-subscription-key: ${{ secrets.AZURE_APIM_SUBSCRIPTION_KEY }}')
+          if test $STATUSCODE -ne 200; then
+            exit 1
+          fi
       - name: Call Search API
         run: |
-          curl --request POST --url "${{ secrets.AZURE_APIM_BASE_URL }}/search" --header 'content-type: application/json' --header 'ocp-apim-subscription-key: ${{ secrets.AZURE_APIM_SUBSCRIPTION_KEY }}' --data '{"term" : "cat","page" : 1,"limit" : 5}'
+          STATUSCODE=$(curl --silent --output /dev/stderr --write-out "%{http_code}" --request POST --url "${{ secrets.AZURE_APIM_BASE_URL }}/search" --header 'content-type: application/json' --header 'ocp-apim-subscription-key: ${{ secrets.AZURE_APIM_SUBSCRIPTION_KEY }}' --data '{"term" : "cat","page" : 1,"limit" : 5}')
+          if test $STATUSCODE -ne 200; then
+            exit 1
+          fi
 {% endraw %}
 ```
 
