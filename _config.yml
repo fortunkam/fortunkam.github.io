@@ -37,6 +37,7 @@ plainwhite:
   date_format: "%b %-d, %Y"  
   sitemap: true
   dark_mode: true
+  app_insights_instrumentation_key: "f8f9bc1d-81bd-4d93-a614-419411977648"
   navigation:
   - url: /
     title: Home
