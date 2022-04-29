@@ -51,7 +51,7 @@ plainwhite:
 
 # Build settings
 theme: plainwhite
-remote_theme: thelehhman/plainwhite-jekyll
+remote_theme: samarsault/plainwhite-jekyll
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
