@@ -50,7 +50,7 @@ plainwhite:
     linkedIn: in/matthewfortunka # format: locale/username
 
 # Build settings
-theme: plainwhite
+#theme: plainwhite
 remote_theme: fortunkam/plainwhite-jekyll
 plugins:
   - jekyll-feed
