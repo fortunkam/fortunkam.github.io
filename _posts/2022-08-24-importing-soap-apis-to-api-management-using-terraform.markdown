@@ -109,6 +109,6 @@ resource "azurerm_api_management_api" "my_api" {
 
 The api can then be deployed using the usual `terraform plan|apply` commands.
 
-As alway, more complete examples can be found on my [github](https://github.com/fortunkam/apim-terraform-soap-import)
+As always, more complete examples can be found on my [github](https://github.com/fortunkam/apim-terraform-soap-import)
 
 
