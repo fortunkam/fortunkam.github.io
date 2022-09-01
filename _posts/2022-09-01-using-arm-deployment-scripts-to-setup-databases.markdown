@@ -6,7 +6,7 @@ categories:
 author: Matthew Fortunka
 ---
 
-[Deployment scripts](https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/deployment-script-bicep) are a great addition to ARM/Bicep that let you execute custom code as part of a deployment.  The scripts run as an Azure Container Instance and ,if successful, are cleaned up once complete. 
+[Deployment scripts](https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/deployment-script-bicep) are a great addition to ARM/Bicep that let you execute custom code as part of a deployment.  The scripts run as an Azure Container Instance and, if successful, are cleaned up once complete. 
 
 As part of the setup for my last blog post ([importing SOAP UIs to API Management using Terraform]({% post_url 2022-08-24-importing-soap-apis-to-api-management-using-terraform %})) I wanted to provision some resources for an API.  The API would be a simple .net framework WCF service (SOAP/WSDL would be generated for me) hosted in Azure App Service that would talk to an Azure SQL Database, supporting both parts would be Application Insights.  App Service has [deployment center](https://docs.microsoft.com/en-us/azure/app-service/deploy-continuous-deployment?tabs=github) for pushing the application code automatically but that still leaves the problem of setting up the database.  (Worth noting I got so consumed by the database problem, I completely forgot about the Deployment Center piece for App Service, one for future me to deal with!)
 
