@@ -20,7 +20,7 @@
 
 title: blog.memoryleek.co.uk
 description: >- # this means to ignore newlines until "baseurl:"
-  Matthew Fortunka, I work for Microsoft as an App Innovation Cloud Solution Architect in the UK. The posts and comments on this site are my own opinions and are not endorsed in any way by my employer.
+  Matthew Fortunka, I work for Microsoft as a Senior Software Engineer in the UK. The posts and comments on this site are my own opinions and are not endorsed in any way by my employer.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: memleek
@@ -31,7 +31,7 @@ show_excerpts: true
 plainwhite:
   name: Matthew Fortunka
   tagline: |
-    I work for Microsoft as an App Innovation Cloud Solution Architect in the UK. 
+    I work for Microsoft as a Senior Software Engineer in the UK. 
     The posts and comments on this site are my own opinions and are not endorsed in any way by my employer.
   portfolio_image: assets/portfolio.png
   date_format: "%b %-d, %Y"  

@@ -9,5 +9,9 @@ To run locally `bundle exec jekyll serve`
 
 to preview posts that have a future date use the following `bundle exec jekyll serve --future` 
 
-Have added a thor file to allow the creation of new posts using `thor jekyll:new this is a test post` (https://gist.github.com/ichadhr/0b4e35174c7e90c0b31b)
+Need to install the thor template first too...
+
+`thor install jekyll_post.thor` , give it a name of "jp"
+
+Have added a thor file to allow the creation of new posts using `thor jekyll_post:new this is a test post` (https://gist.github.com/ichadhr/0b4e35174c7e90c0b31b)
 

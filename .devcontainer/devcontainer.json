@@ -1,0 +1,13 @@
+{
+    "image" : "mcr.microsoft.com/devcontainers/ruby:3.1",
+
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ginfuru.ginfuru-vscode-jekyll-syntax",
+                "hediet.vscode-drawio",
+                "streetsidesoftware.code-spell-checker"
+            ]
+        }
+    }
+}

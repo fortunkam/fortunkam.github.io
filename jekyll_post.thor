@@ -1,5 +1,7 @@
+require "thor"
 require "stringex"
-class Jekyll < Thor
+
+class JekyllPost < Thor
   desc "new", "create a new post"
   method_option :editor, :default => "subl"
   def new(*title)
