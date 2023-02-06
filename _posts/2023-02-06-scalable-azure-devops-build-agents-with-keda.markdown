@@ -31,7 +31,7 @@ A really good article on [scaling Azure DevOps agents with KEDA can be found on 
 Our Helm chart will deploy the following resources.
 
 ![Helm Chart resources](/assets/2023-02-03/helm_chart.drawio.png)
-{%raw%}${{
+
 |Resource Name|Description|
 |---|---|
 |Namespace|Each named instance of the helm chart will be contained within its own namespace|
