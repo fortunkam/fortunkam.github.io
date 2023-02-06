@@ -6,7 +6,7 @@ categories: DevOps KEDA
 author: Matthew Fortunka
 ---
 
-![Multiple agents running](../assets/2023-02-03/Multiple_agents_running.png)
+![Multiple agents running](/assets/2023-02-03/Multiple_agents_running.png)
 
 The compute behind Azure DevOps pipelines comes in the form of build agents.  By default pipelines will run on a Microsoft Hosted agent (typically an Azure Virtual Machine running in the same geography as your [Azure DevOps Organisation](https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/hosted?view=azure-devops&tabs=yaml#networking)).  The problems with Hosted agents come when you need more control over the machines that run them, broadly these issues fall into the following categories..
 
@@ -32,7 +32,7 @@ A really good article on [scaling Azure DevOps agents with KEDA can be found on 
 
 Our Helm chart will deploy the following resources.
 
-![Helm Chart resources](../assets/2023-02-03/helm_chart.drawio.png)
+![Helm Chart resources](/assets/2023-02-03/helm_chart.drawio.png)
 
 |Resource Name|Description|
 |---|---|
