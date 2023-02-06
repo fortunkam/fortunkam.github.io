@@ -31,7 +31,7 @@ A really good article on [scaling Azure DevOps agents with KEDA can be found on 
 Our Helm chart will deploy the following resources.
 
 ![Helm Chart resources](/assets/2023-02-03/helm_chart.drawio.png)
-
+{%raw%}${{
 |Resource Name|Description|
 |---|---|
 |Namespace|Each named instance of the helm chart will be contained within its own namespace|
@@ -52,8 +52,8 @@ In the example below I am using github actions environment variables to provide 
 
 |Name|Description|
 |---|---|
-|`${{vars.LOCATION}}`| The Azure region to deploy your resources too (I used uksouth)|
-|`${{vars.RESOURCE_PREFIX}}`|A prefix added to all resources|
+|`{%raw%}${{vars.LOCATION}}{%endraw%}`| The Azure region to deploy your resources too (I used uksouth)|
+|`{%raw%}${{vars.RESOURCE_PREFIX}}{%endraw%}`|A prefix added to all resources|
 
 
 
@@ -63,7 +63,7 @@ az feature register --name AKS-KedaPreview --namespace Microsoft.ContainerServic
 az provider register -n Microsoft.ContainerService
 
 # Deploy the bicep file
-az deployment sub create -f "./main.bicep" --location "${{vars.LOCATION}}" -p resourcePrefix="${{vars.RESOURCE_PREFIX}}"
+az deployment sub create -f "./main.bicep" --location "{%raw%}${{vars.LOCATION}}{%endraw%}" -p resourcePrefix="{%raw%}${{vars.RESOURCE_PREFIX}}{%endraw%}"
 ```
 
 Once deployed you will have a resource group, an Azure Container Registry and an Azure Kubernetes service.
@@ -73,7 +73,7 @@ Once deployed you will have a resource group, an Azure Container Registry and an
 To [Install KEDA](https://keda.sh/docs/2.9/deploy/#helm), run the following (you will need the Azure CLI, Helm and Kubectl installed).
 ```
 # Connect to the AKS cluster from the CLI
-az aks get-credentials --name "${{ vars.RESOURCE_PREFIX }}-aks" --resource-group "${{ vars.RESOURCE_PREFIX }}-rg"
+az aks get-credentials --name "{%raw%}${{ vars.RESOURCE_PREFIX }}{%endraw%}-aks" --resource-group "{%raw%}${{ vars.RESOURCE_PREFIX }}{%endraw%}-rg"
 
 #Install KEDA
 helm repo add kedacore https://kedacore.github.io/charts
@@ -90,8 +90,8 @@ Once again a [Github action has been provided to describe the build and upload t
 The action uses the `az acr build` command to do the heavy lifting. The image is tagged with latest and the Run id.
 
 ```
-acrName="${{vars.RESOURCE_PREFIX}}acr"
-az acr build -r $acrName -t "azdo-build-agent:latest" -t "azdo-build-agent:${{ github.run_id }}" "./src/azdo_build_agent"
+acrName="{%raw%}${{vars.RESOURCE_PREFIX}}{%endraw%}acr"
+az acr build -r $acrName -t "azdo-build-agent:latest" -t "azdo-build-agent:{%raw%}${{ github.run_id }}{%endraw%}" "./src/azdo_build_agent"
 ```
 
 ## Step 3: Build and Push the Helm Chart
@@ -101,14 +101,14 @@ The action ensures that helm is installed before doing a `helm package` and `hel
 
 ```
 # Package the chart
-helm package "./helm/scaled-azdo-build-agent" --app-version "${{env.HELM_APP_VERSION}}" --version "${{env.HELM_CHART_VERSION}}"
+helm package "./helm/scaled-azdo-build-agent" --app-version "{%raw%}${{env.HELM_APP_VERSION}}{%endraw%}" --version "{%raw%}${{env.HELM_CHART_VERSION}}{%endraw%}"
 
 # Log into the registry
-accessToken=$(az acr login --name "${{env.ACRNAME}}" --expose-token --query accessToken -o tsv)
-echo $accessToken | helm registry login --username "00000000-0000-0000-0000-000000000000" --password-stdin "${{env.ACRNAME}}.azurecr.io"
+accessToken=$(az acr login --name "{%raw%}${{env.ACRNAME}}{%endraw%}" --expose-token --query accessToken -o tsv)
+echo $accessToken | helm registry login --username "00000000-0000-0000-0000-000000000000" --password-stdin "{%raw%}${{env.ACRNAME}}{%endraw%}.azurecr.io"
 
 # Push the versioned chart
-helm push "${{env.HELM_CHART_NAME}}-${{env.HELM_CHART_VERSION}}.tgz" "oci://${{env.ACRNAME}}.azurecr.io"
+helm push "{%raw%}${{env.HELM_CHART_NAME}}{%endraw%}-{%raw%}${{env.HELM_CHART_VERSION}}{%endraw%}.tgz" "oci://{%raw%}${{env.ACRNAME}}{%endraw%}.azurecr.io"
 ```
 
 ## Step 4: Deploy to the cluster.
@@ -117,63 +117,63 @@ helm push "${{env.HELM_CHART_NAME}}-${{env.HELM_CHART_VERSION}}.tgz" "oci://${{e
 
 |Name|Description|
 |---|---|
-|`${{ env.AKS_NAME }}`|The AKS cluster name (e.g. $RESOURCE_PREFIX + **-aks**)|
-|`${{ env.RESOURCE_GROUP }}`|The resource group name (e.g. $RESOURCE_PREFIX + **-rg**)|
-|`${{ env.ACR_NAME }}`|The Azure Container Registry name (e.g. $RESOURCE_PREFIX+ **acr**)|
-|`${{env.HELM_RELEASE_NAME}}`|The name given to this specific deployment of agents (can have multiple on a cluster|
-|`${{env.HELM_CHART_NAME}}`|The name of the helm chart (typically **scaled-azdo-build-agent**)|
-|`${{vars.DOCKER_IMAGE_TAG}}`|The version of the agent image to deploy (typically **latest**)|
-|`${{secrets.AZDO_URL}}`|The url of your Azure DevOps Organisation (e.g. https://dev.azure.com/myorg)|
-|`${{secrets.AZDO_PAT}}`|A Personal Access Token from Azure DevOps with Permissions to Manage Agent Pools|
-|`${{vars.AZDO_AGENT_POOL}}`|The name of the agent pool to add the agents to|
+|`{%raw%}${{ env.AKS_NAME }}{%endraw%}`|The AKS cluster name (e.g. $RESOURCE_PREFIX + **-aks**)|
+|`{%raw%}${{ env.RESOURCE_GROUP }}{%endraw%}`|The resource group name (e.g. $RESOURCE_PREFIX + **-rg**)|
+|`{%raw%}${{ env.ACR_NAME }}{%endraw%}`|The Azure Container Registry name (e.g. $RESOURCE_PREFIX+ **acr**)|
+|`{%raw%}${{env.HELM_RELEASE_NAME}}{%endraw%}`|The name given to this specific deployment of agents (can have multiple on a cluster|
+|`{%raw%}${{env.HELM_CHART_NAME}}{%endraw%}`|The name of the helm chart (typically **scaled-azdo-build-agent**)|
+|`{%raw%}${{vars.DOCKER_IMAGE_TAG}}{%endraw%}`|The version of the agent image to deploy (typically **latest**)|
+|`{%raw%}${{secrets.AZDO_URL}}{%endraw%}`|The url of your Azure DevOps Organisation (e.g. https://dev.azure.com/myorg)|
+|`{%raw%}${{secrets.AZDO_PAT}}{%endraw%}`|A Personal Access Token from Azure DevOps with Permissions to Manage Agent Pools|
+|`{%raw%}${{vars.AZDO_AGENT_POOL}}{%endraw%}`|The name of the agent pool to add the agents to|
 
 ```
 # Log into the AKS cluster
-az aks get-credentials --name "${{ env.AKS_NAME }}" --resource-group "${{ env.RESOURCE_GROUP }}"
+az aks get-credentials --name "{%raw%}${{ env.AKS_NAME }}{%endraw%}" --resource-group "{%raw%}${{ env.RESOURCE_GROUP }}{%endraw%}"
 
 # Get the ACR credential so that helm can grab the container image from the repository
-acrCred=$(az acr credential show -n "${{ env.ACR_NAME }}" --query passwords[0].value -o tsv)
+acrCred=$(az acr credential show -n "{%raw%}${{ env.ACR_NAME }}{%endraw%}" --query passwords[0].value -o tsv)
 
 # Log into the ACR Reqistry to retrieve the helm chart
-accessToken=$(az acr login --name "${{env.ACR_NAME}}" --expose-token --query accessToken -o tsv)
-echo $accessToken | helm registry login --username "00000000-0000-0000-0000-000000000000" --password-stdin "${{env.ACR_NAME}}.azurecr.io"
+accessToken=$(az acr login --name "{%raw%}${{env.ACR_NAME}}{%endraw%}" --expose-token --query accessToken -o tsv)
+echo $accessToken | helm registry login --username "00000000-0000-0000-0000-000000000000" --password-stdin "{%raw%}${{env.ACR_NAME}}{%endraw%}.azurecr.io"
 
 # Apply the Helm chart with some parameters.
 
-helm upgrade ${{env.HELM_RELEASE_NAME}} \
-    "oci://${{env.ACR_NAME}}.azurecr.io/${{env.HELM_CHART_NAME}}" \
-    --version "${{vars.HELM_CHART_VERSION}}" \
+helm upgrade {%raw%}${{env.HELM_RELEASE_NAME}}{%endraw%} \
+    "oci://{%raw%}${{env.ACR_NAME}}{%endraw%}.azurecr.io/{%raw%}${{env.HELM_CHART_NAME}}{%endraw%}" \
+    --version "{%raw%}${{vars.HELM_CHART_VERSION}}{%endraw%}" \
     --install \
     --wait \
-    --set image.repository="${{env.ACR_NAME}}.azurecr.io/azdo-build-agent" \
-    --set image.tag="${{vars.DOCKER_IMAGE_TAG}}" \
-    --set azdo.url="${{secrets.AZDO_URL}}" \
-    --set azdo.agentManagementToken="${{secrets.AZDO_PAT}}" \
-    --set azdo.pool.name="${{vars.AZDO_AGENT_POOL}}" \
-    --set imageCredentials.registry="${{env.ACR_NAME}}.azurecr.io" \
-    --set imageCredentials.username="${{env.ACR_NAME}}" \
+    --set image.repository="{%raw%}${{env.ACR_NAME}}{%endraw%}.azurecr.io/azdo-build-agent" \
+    --set image.tag="{%raw%}${{vars.DOCKER_IMAGE_TAG}}{%endraw%}" \
+    --set azdo.url="{%raw%}${{secrets.AZDO_URL}}{%endraw%}" \
+    --set azdo.agentManagementToken="{%raw%}${{secrets.AZDO_PAT}}{%endraw%}" \
+    --set azdo.pool.name="{%raw%}${{vars.AZDO_AGENT_POOL}}{%endraw%}" \
+    --set imageCredentials.registry="{%raw%}${{env.ACR_NAME}}{%endraw%}.azurecr.io" \
+    --set imageCredentials.username="{%raw%}${{env.ACR_NAME}}{%endraw%}" \
     --set imageCredentials.password="$acrCred"
 ```
 
 Lastly we use the Azure DevOps REST API to disable the placeholder agent in that pool to ensure that they don't take requests.
 
 ```
-agentPool="${{vars.AZDO_AGENT_POOL}}"
-agentName="${{env.HELM_RELEASE_NAME}}-${{env.HELM_CHART_NAME}}-placeholder"
+agentPool="{%raw%}${{vars.AZDO_AGENT_POOL}}{%endraw%}"
+agentName="{%raw%}${{env.HELM_RELEASE_NAME}}{%endraw%}-{%raw%}${{env.HELM_CHART_NAME}}{%endraw%}-placeholder"
 echo "$agentName"
 
 # Get the Pool Id based on the name
-poolId=$(curl -f -s -u :${{secrets.AZDO_PAT}} "${{secrets.AZDO_URL}}/_apis/distributedtask/pools?poolName=$agentPool&api-version=7.1-preview.1" | jq ".value[0].id")
+poolId=$(curl -f -s -u :{%raw%}${{secrets.AZDO_PAT}}{%endraw%} "{%raw%}${{secrets.AZDO_URL}}{%endraw%}/_apis/distributedtask/pools?poolName=$agentPool&api-version=7.1-preview.1" | jq ".value[0].id")
 echo "pool id: $poolId"
 
 sleep 5
 
 # Get the first agent from the pool that matches our name
-agentId=$(curl -f -s -u :${{secrets.AZDO_PAT}} "${{secrets.AZDO_URL}}/_apis/distributedtask/pools/$poolId/agents?api-version=7.1-preview.1" | jq -r ".value | map(select(.name == \"$agentName\")) | .[0] | .id")
+agentId=$(curl -f -s -u :{%raw%}${{secrets.AZDO_PAT}}{%endraw%} "{%raw%}${{secrets.AZDO_URL}}{%endraw%}/_apis/distributedtask/pools/$poolId/agents?api-version=7.1-preview.1" | jq -r ".value | map(select(.name == \"$agentName\")) | .[0] | .id")
 echo "agentId id: $agentId"
 
 # Disable the agent
-curl -s -f -u :${{secrets.AZDO_PAT}} -X PATCH -d "{ \"id\": \"$agentId\", \"enabled\": \"false\", \"status\": \"offline\"}" -H "Content-Type: application/json" "${{secrets.AZDO_URL}}/_apis/distributedtask/pools/$poolId/agents/$agentId?api-version=7.1-preview.1"
+curl -s -f -u :{%raw%}${{secrets.AZDO_PAT}}{%endraw%} -X PATCH -d "{ \"id\": \"$agentId\", \"enabled\": \"false\", \"status\": \"offline\"}" -H "Content-Type: application/json" "{%raw%}${{secrets.AZDO_URL}}{%endraw%}/_apis/distributedtask/pools/$poolId/agents/$agentId?api-version=7.1-preview.1"
 
 ```
 
