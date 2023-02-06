@@ -117,9 +117,9 @@ helm push "{%raw%}${{env.HELM_CHART_NAME}}{%endraw%}-{%raw%}${{env.HELM_CHART_VE
 
 |Name|Description|
 |---|---|
-|`{%raw%}${{ env.AKS_NAME }}{%endraw%}`|The AKS cluster name (e.g. $RESOURCE_PREFIX + **-aks**)|
-|`{%raw%}${{ env.RESOURCE_GROUP }}{%endraw%}`|The resource group name (e.g. $RESOURCE_PREFIX + **-rg**)|
-|`{%raw%}${{ env.ACR_NAME }}{%endraw%}`|The Azure Container Registry name (e.g. $RESOURCE_PREFIX+ **acr**)|
+|`{%raw%}${{env.AKS_NAME}}{%endraw%}`|The AKS cluster name (e.g. $RESOURCE_PREFIX + **-aks**)|
+|`{%raw%}${{env.RESOURCE_GROUP}}{%endraw%}`|The resource group name (e.g. $RESOURCE_PREFIX + **-rg**)|
+|`{%raw%}${{env.ACR_NAME}}{%endraw%}`|The Azure Container Registry name (e.g. $RESOURCE_PREFIX+ **acr**)|
 |`{%raw%}${{env.HELM_RELEASE_NAME}}{%endraw%}`|The name given to this specific deployment of agents (can have multiple on a cluster|
 |`{%raw%}${{env.HELM_CHART_NAME}}{%endraw%}`|The name of the helm chart (typically **scaled-azdo-build-agent**)|
 |`{%raw%}${{vars.DOCKER_IMAGE_TAG}}{%endraw%}`|The version of the agent image to deploy (typically **latest**)|
@@ -129,10 +129,10 @@ helm push "{%raw%}${{env.HELM_CHART_NAME}}{%endraw%}-{%raw%}${{env.HELM_CHART_VE
 
 ```
 # Log into the AKS cluster
-az aks get-credentials --name "{%raw%}${{ env.AKS_NAME }}{%endraw%}" --resource-group "{%raw%}${{ env.RESOURCE_GROUP }}{%endraw%}"
+az aks get-credentials --name "{%raw%}${{env.AKS_NAME}}{%endraw%}" --resource-group "{%raw%}${{env.RESOURCE_GROUP}}{%endraw%}"
 
 # Get the ACR credential so that helm can grab the container image from the repository
-acrCred=$(az acr credential show -n "{%raw%}${{ env.ACR_NAME }}{%endraw%}" --query passwords[0].value -o tsv)
+acrCred=$(az acr credential show -n "{%raw%}${{env.ACR_NAME}}{%endraw%}" --query passwords[0].value -o tsv)
 
 # Log into the ACR Reqistry to retrieve the helm chart
 accessToken=$(az acr login --name "{%raw%}${{env.ACR_NAME}}{%endraw%}" --expose-token --query accessToken -o tsv)
