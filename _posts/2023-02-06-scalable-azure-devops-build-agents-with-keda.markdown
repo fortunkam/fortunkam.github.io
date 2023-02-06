@@ -6,8 +6,6 @@ categories: DevOps KEDA
 author: Matthew Fortunka
 ---
 
-![Multiple agents running](/assets/2023-02-03/Multiple_agents_running.png)
-
 The compute behind Azure DevOps pipelines comes in the form of build agents.  By default pipelines will run on a Microsoft Hosted agent (typically an Azure Virtual Machine running in the same geography as your [Azure DevOps Organisation](https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/hosted?view=azure-devops&tabs=yaml#networking)).  The problems with Hosted agents come when you need more control over the machines that run them, broadly these issues fall into the following categories..
 
 * Agents need access to private resources (e.g. endpoints on a network)
@@ -179,8 +177,30 @@ curl -s -f -u :${{secrets.AZDO_PAT}} -X PATCH -d "{ \"id\": \"$agentId\", \"enab
 
 ```
 
+## Step 5: Use the agents
 
+To prove the agents were working I created the following pipeline in Azure Devops.  It outputs the azure CLI version and then sleeps for 10 seconds.
 
+```
+trigger: none
+
+pool:
+  name: KedaPool
+
+steps:
+  - bash: az --version
+    displayName: Azure CLI version check
+  
+  - bash: sleep 10
+    displayName: Sleep 10
+```
+
+The pool name `name: KedaPool` is the key bit for running against the self host agents.  (you may need to authorize the pipeline on first run).
+Below is the agent poll with a number of pipeline runs in progress.
+
+![Multiple agents running](/assets/2023-02-03/Multiple_agents_running.png)
+
+*QUICK NOTE: The number of parallel runs is dictated by the number of Agents available (in our case limited by the resources on the cluster) AND the number of [parallel jobs available in Azure DevOps](https://learn.microsoft.com/en-us/azure/devops/pipelines/licensing/concurrent-jobs?view=azure-devops&tabs=ms-hosted).  This latter value tends to be the bigger restriction as it is a paid for resource.*
 
 
 
